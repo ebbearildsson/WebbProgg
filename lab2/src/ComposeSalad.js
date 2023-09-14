@@ -3,12 +3,22 @@ import { useState } from 'react';
 function ComposeSalad({inventory}) {
   const foundationList = Object.keys(inventory).filter(name => inventory[name].foundation);
   const proteinList = Object.keys(inventory).filter(name => inventory[name].protein);
-  const extraList = Object.keys(inventory).filter(name => inventory[name].extra);
+  const extraList = Object.keys(inventory).filter(name => inventory[name].extra).map(name => [name, inventory[name].price]);
   const dressingList = Object.keys(inventory).filter(name => inventory[name].dressing);
   const [foundation, setFoundation] = useState('Pasta');
-  const [extras, setExtra] = useState({ Bacon: true, Fetaost: true });
+  const [extras, setExtra] = useState([]);
   const [dressing, setDressing] = useState('Rhodeisland');
   const [protein, setProtein] = useState('Kycklingfilé');
+
+  const handleCheck = (event) => {
+    var updatedList = [...extras];
+    if (event.target.checked) {
+      updatedList = [...extras, event.target.value];
+    } else {
+      updatedList.splice(extras.indexOf(event.target.value), 1);
+    }
+    setExtra(updatedList);
+  };
 
   return (
     <div className="continer col-12">
@@ -22,9 +32,10 @@ function ComposeSalad({inventory}) {
         {proteinList.map(name => <option key={name} className="col-4" value={name}>{name}</option>)}
       </select>
       <h5>Välj extra</h5>
-      <select className="form-select" aria-label="Default select example" value={extras} onChange={(event) => setExtra(event.target.value)}>
-        {extraList.map(name => <option key={name} className="col-4" value={name}>{name}</option>)}
-      </select>
+        {extraList.map(name => <span>
+            <input type="checkbox" class="btn-check" id={name[0]} autocomplete="off" onChange={handleCheck} value={name[0]}></input>
+            <label class="btn" for={name[0]}>{name[0]} ({name[1]} kr)</label>
+          </span>)}
       <h5>Välj dressing</h5>
       <select className="form-select" aria-label="Default select example" value={dressing} onChange={(event) => setDressing(event.target.value)}>
         {dressingList.map(name => <option key={name} className="col-4" value={name}>{name}</option>)}
@@ -34,4 +45,5 @@ function ComposeSalad({inventory}) {
     </div>
   );
 }
+
 export default ComposeSalad;
