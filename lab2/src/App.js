@@ -9,9 +9,12 @@ function App() {
       <header className="pb-3 mb-4 border-bottom">
         <span className="fs-4">Min egen salladsbar</span>
       </header>
+      <div className="row h-200 p-5 bg-light border rounded-3">
+        Hello
+      </div>
       <ComposeSalad inventory={inventory}/>
       <footer className="pt-3 mt-4 text-muted border-top">
-        EDAF90 - webprogrammering
+        EDAF90 - webbprogrammering
       </footer>
     </div>
   );

@@ -32,9 +32,9 @@ function ComposeSalad({inventory}) {
         {proteinList.map(name => <option key={name} className="col-4" value={name}>{name}</option>)}
       </select>
       <h5>Välj extra</h5>
-        {extraList.map(name => <span>
-            <input type="checkbox" class="btn-check" id={name[0]} autocomplete="off" onChange={handleCheck} value={name[0]}></input>
-            <label class="btn" for={name[0]}>{name[0]} ({name[1]} kr)</label>
+        {extraList.map(name => <span key={name}>
+            <input type="checkbox" className="btn-check" id={name[0]} autoComplete="off" onChange={handleCheck} value={name[0]}></input>
+            <label className="btn" htmlFor={name[0]}>{name[0]} ({name[1]} kr)</label>
           </span>)}
       <h5>Välj dressing</h5>
       <select className="form-select" aria-label="Default select example" value={dressing} onChange={(event) => setDressing(event.target.value)}>
