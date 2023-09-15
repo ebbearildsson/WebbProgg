@@ -188,10 +188,13 @@ console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
  * Reflection question 4
  * They should be in the prototype so that they are not copied for every object.
  */
+
 /**
  * Reflection question 5
  * Yes, by using Object.defineProperty() and setting writable to false.
+ * example: Object.defineProperty(Salad.prototype, 'id', {writable: false});
  */
+
 /**
  * Reflection question 6
  * Yes its possible through adding a # in front of the variable name.
