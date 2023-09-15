@@ -28,6 +28,23 @@
   color: #61dafb;
 }
 
+.group {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.group > *{
+  width: 30%;
+  padding: 10px;
+}
+
+.salad-maker > *{
+  margin: 20px 0px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
