@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Reflection question 1
- * your answer goes here
+ * Since we can provide any number arguments without error in JS
  */
 
 import inventory from './inventory.mjs';
@@ -22,12 +22,17 @@ for (const name in inventory) {
 }
 /**
  * Reflection question 2
+ * Differences will show when we iterate over ex. methods, since in iterates 
+ * over all enumerable object whike of iterates over the elements.
+ * Since for each is in the prototype and not the object.
  */
 
 console.log('\n--- Assignment 1 ---------------------------------------')
 
 function makeOptions(inv, prop) {
-  return 'TODO';
+  return Object.keys(inv).filter(name => inv[name][prop]).map(name =>
+    `<option value="${name}" key="${name}"> ${name}, ${inv[name].price} kr</option>`)
+    .reduce((a, b) => a + b + "\n", ''); // added newline to make it easier to read
 }
 
 console.log(makeOptions(inventory, 'foundation'));
@@ -93,6 +98,23 @@ console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör
 
 
 console.log('\n--- reflection question 3 ---------------------------------------')
+/**
+ * Reflection question 3
+ * 
+ * Constructor functions, prototypes and classes are all ways to create objects in JS.
+ * 
+ * typeof Salad: function
+ * typeof Salad.prototype: object
+ * typeof Salad.prototype.prototype: undefined
+ * typeof myCaesarSalad: object
+ * typeof myCaesarSalad.prototype: undefined
+ * check 1: false
+ * check 2: true
+ * check 3: true
+ * 
+ */
+
+
 console.log('typeof Salad: ' + typeof Salad);
 console.log('typeof Salad.prototype: ' + typeof Salad.prototype);
 console.log('typeof Salad.prototype.prototype: ' + typeof Salad.prototype.prototype);
@@ -164,10 +186,13 @@ console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
 
 /**
  * Reflection question 4
+ * They should be in the prototype so that they are not copied for every object.
  */
 /**
  * Reflection question 5
+ * Yes, by using Object.defineProperty() and setting writable to false.
  */
 /**
  * Reflection question 6
+ * Yes its possible through adding a # in front of the variable name.
  */
