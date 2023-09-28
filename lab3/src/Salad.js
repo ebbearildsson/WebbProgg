@@ -29,7 +29,8 @@ class Salad {
 
 Salad.prototype.getPrice = function () {
   return Object.keys(this.ingredients)
-    .reduce((pre, cur) => pre.price + cur.price, 0);
+    .map(ingredient => this.ingredients[ingredient].price)
+    .reduce((pre, cur) => pre + cur, 0);
 }
 
 Salad.prototype.count = function (prop) {

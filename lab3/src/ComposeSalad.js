@@ -22,8 +22,10 @@ function ComposeSalad({inventory, salads, setSalad}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     let salad = new Salad();
-    let ingredients = {foundation, protein, ...extras, dressing};
-    Object.keys(ingredients).forEach(ingredient => salad.add(ingredient, inventory[ingredient]));
+    salad.add(foundation, inventory[foundation]);
+    salad.add(dressing, inventory[dressing]);
+    salad.add(protein, inventory[protein]);
+    Object.keys(extras).forEach(name => salad.add(name, inventory[name]));
 
     setSalad([...salads, salad]);
     setFoundation('');
