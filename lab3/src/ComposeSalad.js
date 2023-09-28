@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Salad from './Salad';
 import SelectOption from './SelectOption';
 
-function ComposeSalad({inventory, salads, setSalad}) {
+export default function ComposeSalad({inventory, salads, setSalad}) {
   const foundationList = Object.keys(inventory).filter(name => inventory[name].foundation).map(name => [name, inventory[name].price]);
   const proteinList = Object.keys(inventory).filter(name => inventory[name].protein).map(name => [name, inventory[name].price]);
   const extraList = Object.keys(inventory).filter(name => inventory[name].extra).map(name => [name, inventory[name].price]);
@@ -21,6 +21,10 @@ function ComposeSalad({inventory, salads, setSalad}) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    event.target.classList.add("was-validated");
+    if(!event.target.checkValidity()) return;
+    event.target.classList.remove("was-validated");
+
     let salad = new Salad();
     salad.add(foundation, inventory[foundation]);
     salad.add(dressing, inventory[dressing]);
@@ -36,10 +40,10 @@ function ComposeSalad({inventory, salads, setSalad}) {
 
   return (
     <div className="row h-200 p-5 bg-light border rounded-3 salad-maker">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <span className="fs-4">Ingredienser</span>
-        <SelectOption name="bas" hook={setFoundation} list={foundationList} />
-        <SelectOption name="protein" hook={setProtein} list={proteinList} />
+        <SelectOption name="bas" hook={setFoundation} value={foundation} list={foundationList} />
+        <SelectOption name="protein" hook={setProtein} value={protein} list={proteinList} />
         <h5>Välj extra</h5>
         <div className="group">
           {extraList.map(([name, price]) => 
@@ -49,11 +53,9 @@ function ComposeSalad({inventory, salads, setSalad}) {
             </span>
           )}
         </div>
-        <SelectOption name="dressing" hook={setDressing} list={dressingList} />
+        <SelectOption name="dressing" hook={setDressing} value={dressing} list={dressingList} />
         <button type="submit" value="submit" className="btn btn-primary m-3">Lägg till sallad</button>
       </form>
     </div>
   );
 }
-
-export default ComposeSalad;
