@@ -1,15 +1,46 @@
-import { createBrowserRouter, useRouteError } from "react-router-dom";
-import App from './App';
+import { createBrowserRouter } from "react-router-dom";
+import App from "./App";
+import ComposeSalad from "./ComposeSalad";
+import ViewOrder from "./ViewOrder";
+import Confirm from "./Confirm";
 
 const router = createBrowserRouter([
-  {
-    element: <App />,
-    children: [
-      {
-        path: "compose-salad",
-        element: <p>replace with compose salad component</p>
-      }
-    ]
-  },
+    {
+        element: <App />,
+        children: [
+            {
+                path: "/",
+                element: (
+                    <div>
+                        <h1>henlo</h1>
+                        <p>🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷</p>
+                    </div>
+                ),
+            },
+            {
+                path: "/compose-salad",
+                element: <ComposeSalad />,
+            },
+            {
+                path: "/view-order",
+                element: <ViewOrder />,
+                children: [
+                    {
+                        path: "/view-order/confirm",
+                        element: <Confirm />,
+                    },
+                ],
+            },
+            {
+                path: "*",
+                element: (
+                    <div>
+                        <h1>Oopsie Woopsie We could not find the file xD</h1>
+                        <p>🏋️‍♂️🛒🍅</p>
+                    </div>
+                ),
+            },
+        ],
+    },
 ]);
-export default router
+export default router;
