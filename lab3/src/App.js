@@ -3,9 +3,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import inventory from './inventory.mjs';
 import ComposeSalad from './ComposeSalad'
 import ViewOrder from './ViewOrder'
+import NavBar from './NavBar'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import { useState } from 'react';
 
-function App() { 
+export default function App() { 
   const [salads, setSalad] = useState([])
   return (
     <div className="container py-4">
@@ -13,6 +18,8 @@ function App() {
         <span className="fs-4">Min egen salladsbar</span>
       </header>
       
+      <NavBar/>
+
       <ViewOrder salads={salads}/>
       
       <ComposeSalad inventory={inventory} salads={salads} setSalad={setSalad}/>
@@ -23,8 +30,6 @@ function App() {
     </div>
   );
 }
-
-export default App;
 
 /*
  * Reflection questions:

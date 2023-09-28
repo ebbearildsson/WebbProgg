@@ -20,18 +20,23 @@ export default function ComposeSalad({inventory, salads, setSalad}) {
   };
 
   const handleSubmit = (event) => {
+    // Validate form
     event.preventDefault();
     event.target.classList.add("was-validated");
     if(!event.target.checkValidity()) return;
     event.target.classList.remove("was-validated");
 
+    // Create salad
     let salad = new Salad();
     salad.add(foundation, inventory[foundation]);
     salad.add(dressing, inventory[dressing]);
     salad.add(protein, inventory[protein]);
     Object.keys(extras).forEach(name => salad.add(name, inventory[name]));
 
+    // Export salad
     setSalad([...salads, salad]);
+
+    // Reset form
     setFoundation('');
     setExtra({});
     setDressing('');
