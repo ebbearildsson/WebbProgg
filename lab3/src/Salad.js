@@ -1,21 +1,20 @@
 import { v4 as uuid } from 'uuid';
 
 class Salad {
-  uuid = uuid(); // use this in the constructor
+  uuid = uuid();
+  ingredients = {};
 
   constructor(salad) {
-    if(salad instanceof Salad){
-      Object.keys(salad).forEach(ingredient => this.add(ingredient, salad[ingredient]));
-    }
+    salad = salad || {};
   }
 
   add(name, properties) {
-    this[name] = properties;
+    this.ingredients[name] = properties;
     return this;
   }
 
   remove(name) {
-    delete this[name];
+    delete this.ingredients[name];
     return this;
   }
 
@@ -29,21 +28,18 @@ class Salad {
 }
 
 Salad.prototype.getPrice = function () {
-  return Object.keys(this)
-    .filter(ingredient => ingredient !== 'id' && ingredient !== 'uuid')
-    .map(ingredient => this[ingredient].price)
-    .reduce((pre, cur) => pre + cur, 0);
+  return Object.keys(this.ingredients)
+    .reduce((pre, cur) => pre.price + cur.price, 0);
 }
 
 Salad.prototype.count = function (prop) {
-  return Object.keys(this)
-    .filter(ingredient => this[ingredient][prop])
+  return Object.keys(this.ingredients)
+    .filter(ingredient => this.ingredients[ingredient][prop])
     .length;
 }
 
 Salad.prototype.prettyPrint = function () {
-    return Object.keys(this)
-    .filter(ingredient => ingredient !== 'id' && ingredient !== 'uuid')
+    return Object.keys(this.ingredients)
     .reduce((pre, cur) => pre + ', ' + cur, '')
     .slice(2);
 }
