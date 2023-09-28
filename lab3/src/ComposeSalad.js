@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Salad from './Salad';
+import SelectOption from './SelectOption';
 
 function ComposeSalad({inventory, salads, setSalad}) {
   const foundationList = Object.keys(inventory).filter(name => inventory[name].foundation).map(name => [name, inventory[name].price]);
@@ -38,8 +39,8 @@ function ComposeSalad({inventory, salads, setSalad}) {
     <div className="row h-200 p-5 bg-light border rounded-3 salad-maker">
       <form onSubmit={handleClick}>
         <span className="fs-4">Ingredienser</span>
-        {selectOptions(foundation, setFoundation, foundationList, 'bas')}
-        {selectOptions(protein, setProtein, proteinList, 'protein')}
+        <SelectOption name="bas" attr="foundation" hook={setFoundation} list={foundationList} />
+        <SelectOption name="protein" attr="protein" hook={setProtein} list={proteinList} />
         <h5>Välj extra</h5>
         <div className="group">
           {extraList.map(([name, price]) => 
@@ -49,7 +50,7 @@ function ComposeSalad({inventory, salads, setSalad}) {
             </span>
           )}
         </div>
-        {selectOptions(dressing, setDressing, dressingList, 'dressing')}
+        <SelectOption name="dressing" attr="dressing" hook={setDressing} list={dressingList} />
         <button type="submit" value="submit" className="btn btn-primary">Lägg till sallad</button>
       </form>
     </div>
@@ -57,12 +58,3 @@ function ComposeSalad({inventory, salads, setSalad}) {
 }
 
 export default ComposeSalad;
-
-function selectOptions(attr, hook, list, name) {
-  return <div>
-    <h5>Välj {name}</h5>
-    <select className="form-select" aria-label="Default select example" value={attr} onChange={(event) => hook(event.target.value)}>
-    {list.map(([name, price]) => <option key={name} className="col-4" value={name}>{name} ({price} kr)</option>)}
-    </select>
-  </div>;
-}
