@@ -1,8 +1,10 @@
-import { useOutletContext } from "react-router";
+import { useOutletContext, Outlet } from "react-router-dom";
+
 export default function ViewOrder(props) {
     let salads = useOutletContext().salads;
     return (
         <div className="row h-200 p-5 bg-light border rounded-3">
+            <Outlet context={{salads}} />
             <span className="fs-4">Varukorg</span>
             <table className="table table-striped table-light">
                 <thead className="thead-dark">

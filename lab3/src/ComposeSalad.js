@@ -28,7 +28,7 @@ export default function ComposeSalad(props) {
     const navigate = useNavigate();
 
     const handleCheck = (event) => {
-        let updatedList = extras;
+        let updatedList = {...extras}
         updatedList[event.target.value] = !updatedList[event.target.value];
         setExtra(updatedList);
     };
@@ -37,8 +37,7 @@ export default function ComposeSalad(props) {
         // Validate form
         event.preventDefault();
         event.target.classList.add("was-validated");
-        if (!event.target.checkValidity()) return;
-        event.target.classList.remove("was-validated");
+        if (!event.target.checkValidity() || Object.keys(extras).length < 2) return;
 
         // Create salad
         let salad = new Salad();
@@ -51,7 +50,7 @@ export default function ComposeSalad(props) {
         setSalad([...salads, salad]);
 
         // Navigate to view-order
-        navigate("/view-order/confirm");
+        navigate(`/view-order/confirm/${salad.uuid}`);
 
         // Reset form
         setFoundation("");
@@ -82,7 +81,7 @@ export default function ComposeSalad(props) {
                         <span key={name}>
                             <input
                                 type="checkbox"
-                                checked={extras[name]}
+                                checked={extras[name] ?? false}
                                 className="btn-check"
                                 id={name}
                                 autoComplete="off"

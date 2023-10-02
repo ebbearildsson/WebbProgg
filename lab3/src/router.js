@@ -4,7 +4,8 @@ import ComposeSalad from "./ComposeSalad";
 import ViewOrder from "./ViewOrder";
 import Confirm from "./Confirm";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+    [
     {
         element: <App />,
         children: [
@@ -12,7 +13,7 @@ const router = createBrowserRouter([
                 path: "/",
                 element: (
                     <div>
-                        <h1>henlo</h1>
+                        <h1>Henlo!</h1>
                         <p>🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷🤷</p>
                     </div>
                 ),
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
                 element: <ViewOrder />,
                 children: [
                     {
-                        path: "/view-order/confirm",
+                        path: "confirm/:saladId",
                         element: <Confirm />,
                     },
                 ],
