@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import NavBar from "./NavBar";
 import React from "react";
-import inventory from "./inventory.mjs";
+//import inventory from "./inventory.mjs";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 
@@ -14,10 +14,10 @@ export default function App() {
             <header className="pb-3 mb-4 border-bottom">
                 <span className="fs-4">Min egen salladsbar</span>
             </header>
-            
+
             <NavBar />
 
-            <Outlet context={{ salads, setSalad, inventory }} />
+            <Outlet context={{ salads, setSalad }} />
 
             <footer className="pt-3 mt-4 text-muted border-top">
                 EDAF90 - webbprogrammering

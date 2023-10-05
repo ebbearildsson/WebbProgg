@@ -1,10 +1,16 @@
 import { useState } from "react";
 import Salad from "./Salad";
 import SelectOption from "./SelectOption";
-import { useOutletContext, useNavigate } from "react-router-dom";
+import Spinner from "./Spinner";
+import {
+    useOutletContext,
+    useNavigate,
+    useNavigation,
+    useLoaderData,
+} from "react-router-dom";
 
-export default function ComposeSalad(props) {
-    let inventory = useOutletContext().inventory;
+export default function ComposeSalad({ onOrder: handleOrder }) {
+    const inventory = useLoaderData();
     let salads = useOutletContext().salads;
     let setSalad = useOutletContext().setSalad;
 
@@ -28,7 +34,7 @@ export default function ComposeSalad(props) {
     const navigate = useNavigate();
 
     const handleCheck = (event) => {
-        let updatedList = {...extras}
+        let updatedList = { ...extras };
         updatedList[event.target.value] = !updatedList[event.target.value];
         setExtra(updatedList);
     };
@@ -37,7 +43,8 @@ export default function ComposeSalad(props) {
         // Validate form
         event.preventDefault();
         event.target.classList.add("was-validated");
-        if (!event.target.checkValidity() || Object.keys(extras).length < 2) return;
+        if (!event.target.checkValidity() || Object.keys(extras).length < 2)
+            return;
 
         // Create salad
         let salad = new Salad();
