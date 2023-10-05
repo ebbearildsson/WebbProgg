@@ -4,11 +4,13 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import NavBar from "./NavBar";
 import React from "react";
 //import inventory from "./inventory.mjs";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 import { useState } from "react";
+import Spinner from "./Spinner";
 
 export default function App() {
     const [salads, setSalad] = useState([]);
+    const navigation = useNavigation();
     return (
         <div className="container py-4">
             <header className="pb-3 mb-4 border-bottom">
@@ -17,8 +19,8 @@ export default function App() {
 
             <NavBar />
 
-            <Outlet context={{ salads, setSalad }} />
-
+            {navigation.state === 'loading' ? <Spinner /> : <Outlet context={{ salads, setSalad }} />}
+            
             <footer className="pt-3 mt-4 text-muted border-top">
                 EDAF90 - webbprogrammering
             </footer>

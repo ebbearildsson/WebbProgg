@@ -1,11 +1,10 @@
 import { useState } from "react";
 import Salad from "./Salad";
 import SelectOption from "./SelectOption";
-import Spinner from "./Spinner";
+
 import {
     useOutletContext,
     useNavigate,
-    useNavigation,
     useLoaderData,
 } from "react-router-dom";
 

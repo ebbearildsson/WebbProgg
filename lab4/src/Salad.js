@@ -25,6 +25,10 @@ class Salad {
       return saladObj;
     })[0];
   }
+
+  toArr() {
+    return Object.keys(this.ingredients);
+  }
 }
 
 Salad.prototype.getPrice = function () {

@@ -52,7 +52,7 @@ async function loadInventory() {
 
 async function inventoryLoader() {
     const inventory = await loadInventory();
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     return inventory;
 }
 
