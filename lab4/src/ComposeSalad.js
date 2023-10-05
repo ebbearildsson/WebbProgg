@@ -54,6 +54,7 @@ export default function ComposeSalad({ onOrder: handleOrder }) {
 
         // Export salad
         setSalad([...salads, salad]);
+        window.localStorage.setItem("salads", JSON.stringify(salads));
 
         // Navigate to view-order
         navigate(`/view-order/confirm/${salad.uuid}`);

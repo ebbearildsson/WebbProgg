@@ -1,21 +1,37 @@
 import { useOutletContext, Outlet } from "react-router-dom";
+import { useState } from "react";
 
 export default function ViewOrder(props) {
     let salads = useOutletContext().salads;
+    const [showToast, setShowToast] = useState(false);
 
-    const placeOrder = () => {
-        fetch("http://localhost:8080/orders/", {
+    async function placeOrder() {
+        const res = await fetch("http://localhost:8080/orders/", {
             method: "POST",
-            body: JSON.stringify(salads.map(salad => salad.toArr())),
+            body: JSON.stringify(salads.map((salad) => salad.toArr())),
             headers: {
-              "Content-type": "application/json; charset=UTF-8"
-            }
+                "Content-type": "application/json",
+            },
         })
+            .then((response) => response.json())
+            .then((data) =>
+                alert(
+                    "Happy Salad! 🥗" +
+                        "\n Status: " +
+                        data.status +
+                        "\n Price: " +
+                        data.price +
+                        "\n Time Ordered: " +
+                        data.timestamp +
+                        "\n ID: " +
+                        data.uuid
+                )
+            );
     }
 
     return (
         <div className="row h-200 p-5 bg-light border rounded-3">
-            <Outlet context={{salads}} />
+            <Outlet context={{ salads }} />
             <span className="fs-4">Varukorg</span>
             <table className="table table-striped table-light">
                 <thead className="thead-dark">
@@ -25,7 +41,7 @@ export default function ViewOrder(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {salads.map(salad => (
+                    {salads.map((salad) => (
                         <tr key={salad.uuid}>
                             <td>{salad.prettyPrint()}</td>
                             <td>{salad.getPrice()} kr</td>
@@ -33,7 +49,9 @@ export default function ViewOrder(props) {
                     ))}
                 </tbody>
             </table>
-            <button className="btn btn-primary" onClick={placeOrder}>Order</button>
+            <button className="btn btn-primary" onClick={placeOrder}>
+                Order
+            </button>
         </div>
     );
 }

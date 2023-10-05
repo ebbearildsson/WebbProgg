@@ -2,6 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import NavBar from "./NavBar";
+import Salad from "./Salad";
 import React from "react";
 //import inventory from "./inventory.mjs";
 import { Outlet, useNavigation } from "react-router-dom";
@@ -9,7 +10,9 @@ import { useState } from "react";
 import Spinner from "./Spinner";
 
 export default function App() {
-    const [salads, setSalad] = useState([]);
+    const [salads, setSalad] = useState(
+        [Salad.parse(window.localStorage.getItem("salads"))] ?? []
+    );
     const navigation = useNavigation();
     return (
         <div className="container py-4">
@@ -19,8 +22,12 @@ export default function App() {
 
             <NavBar />
 
-            {navigation.state === 'loading' ? <Spinner /> : <Outlet context={{ salads, setSalad }} />}
-            
+            {navigation.state === "loading" ? (
+                <Spinner />
+            ) : (
+                <Outlet context={{ salads, setSalad }} />
+            )}
+
             <footer className="pt-3 mt-4 text-muted border-top">
                 EDAF90 - webbprogrammering
             </footer>
