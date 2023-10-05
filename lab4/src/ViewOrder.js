@@ -1,9 +1,7 @@
 import { useOutletContext, Outlet } from "react-router-dom";
-import { useState } from "react";
 
 export default function ViewOrder(props) {
     let salads = useOutletContext().salads;
-    const [showToast, setShowToast] = useState(false);
 
     async function placeOrder() {
         const res = await fetch("http://localhost:8080/orders/", {

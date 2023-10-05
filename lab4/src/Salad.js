@@ -5,7 +5,10 @@ class Salad {
     ingredients = {};
 
     constructor(salad) {
-        salad = salad || {};
+      if(salad) {
+        this.ingredients = {...salad.ingredients};
+        this.uuid = salad.uuid;
+      }
     }
 
     add(name, properties) {
@@ -18,11 +21,9 @@ class Salad {
         return this;
     }
 
-    //Return a salad object or a list of salad objects from a JSON string
     static parse(salads) {
-        if (typeof salads === "string") {
-            salads = JSON.parse(salads);
-        }
+        //salads = JSON.parse(salads);
+        
         if (Array.isArray(salads)) {
             return salads.map((salad) => new Salad(salad));
         } else {

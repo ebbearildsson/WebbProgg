@@ -10,8 +10,9 @@ import { useState } from "react";
 import Spinner from "./Spinner";
 
 export default function App() {
+    console.log(JSON.parse(window.localStorage.getItem("salads")));
     const [salads, setSalad] = useState(
-        [Salad.parse(window.localStorage.getItem("salads"))] ?? []
+        window.localStorage.getItem("salads") ? Salad.parse(window.localStorage.getItem("salads")) : []
     );
     const navigation = useNavigation();
     return (
