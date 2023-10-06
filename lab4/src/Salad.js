@@ -21,13 +21,16 @@ class Salad {
         return this;
     }
 
-    static parse(salads) {
-        //salads = JSON.parse(salads);
-        
-        if (Array.isArray(salads)) {
-            return salads.map((salad) => new Salad(salad));
-        } else {
-            return [new Salad(salads)];
+    static parse(json) {
+        if(typeof json === 'string') {
+            let salad = JSON.parse(json);
+            if(Array.isArray(salad)) {
+            return salad.map((s) => new Salad(s));
+            } else {
+            return new Salad(salad);
+            }
+        } else {    
+            return json.map((s) => new Salad(s));
         }
     }
 

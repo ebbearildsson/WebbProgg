@@ -6,14 +6,23 @@ import Salad from "./Salad";
 import React from "react";
 //import inventory from "./inventory.mjs";
 import { Outlet, useNavigation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Spinner from "./Spinner";
 
 export default function App() {
-    console.log(JSON.parse(window.localStorage.getItem("salads")));
-    const [salads, setSalad] = useState(
-        window.localStorage.getItem("salads") ? Salad.parse(window.localStorage.getItem("salads")) : []
-    );
+    const [salads, setSalad] = useState(window.localStorage.getItem("salads") ? Salad.parse(window.localStorage.getItem("salads")) : []);
+    
+    useEffect(() => {
+            localStorage.setItem("salads", JSON.stringify(salads));
+    }, [salads]);
+    
+    useEffect(() => {
+        const salads = JSON.parse(localStorage.getItem("salads"));
+        if (salads) {
+            setSalad(Salad.parse(salads))
+        }
+    }, []);
+
     const navigation = useNavigation();
     return (
         <div className="container py-4">
